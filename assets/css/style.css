@@ -1,0 +1,154 @@
+/* 
+Global attributes begin here 
+*/
+:root {
+    --dark-bg: #362d4c;
+    --light-bg: #ededf6;
+    --primary: #d69df2;
+    --secondary: #684e83;
+    --edge-margin: 60px;
+    --global-margin: 5%;
+}
+
+* {
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background-color: #efe9fe;
+}
+
+/* 
+Header begins here 
+*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2%;
+    padding-top: 1%;
+    background-color: var(--dark-bg);
+    color: var(--primary);
+}
+
+nav {
+    display: block;
+    margin-left: auto;
+    margin-right: var(--edge-margin);
+    float: right;
+    font-size: 20px;
+}
+
+a {
+    padding: 3px 9px;
+    border-bottom: 4px solid var(--primary);
+    margin: 0 3px;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+/* 
+Main starts here 
+*/
+main section { /* content will move from left to right and will wrap below */
+    margin: calc(var(--global-margin)/2) var(--global-margin);
+    /* Learned from https://stackoverflow.com/questions/8643401/is-there-a-way-to-add-and-subtract-values-in-css */
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+main section > div {
+    display: flex;
+}
+
+main section > * > * { /* right section 80% */
+    width: 80%;
+    margin-bottom: calc(var(--global-margin)/2);
+    padding-left: calc(var(--global-margin)/2);
+    border-left: 5px solid var(--secondary);
+}
+
+.text-right { /* left section 20% w/ text aligned to the right */
+    text-align: right;
+    width: 20%;
+    border: none;
+    padding-top: calc(var(--global-margin)/8);
+    padding-right: calc(var(--global-margin)/4);
+}
+
+/* 
+Nav setup starts here 
+*/
+section nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    align-self: center;
+}
+
+section a {
+    color: var(--dark-bg);
+    border-bottom: 4px solid var(--secondary);
+    padding: 3px 5px;
+    align-self: flex-end;
+}
+
+.hide {
+    display: none;
+}
+
+/* I'm deciding not to mess with correcting viewport widths that are less than 560px */
+/* 
+Media Query set up 
+*/
+
+@media screen and (max-width: 900px) {
+    /*
+    Header adjustment for smaller screens
+    */
+    header {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+    }
+
+    header nav {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 10px var(--edge-margin);
+    }
+
+    header a {
+        border: 0;
+    }
+  
+    /*
+    <main> adjustment for smaller screens
+    */
+    main section {
+        display: block;
+        height: auto;
+    }
+
+    main section > * { /* contents will take up the whole width */
+        width: 100%;
+        margin-bottom: calc(var(--global-margin)/2);
+    }
+
+    .text-right {
+        text-align: left;
+        width: auto;
+    }
+  
+    /*
+    Contact Me adjustment for smaller screens
+    */
+    section nav { /* contents will move from left to right, and will wrap below */
+        flex-flow: row wrap; 
+        justify-content: left;
+    }
+}
