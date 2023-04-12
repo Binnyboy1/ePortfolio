@@ -116,9 +116,8 @@ section a {
     object-fit: contain;
 }
 
-.doc > * {
+.doc * {
     width: min(100%, 600px);
-    padding: auto;
     height: 560px;
 }
 
