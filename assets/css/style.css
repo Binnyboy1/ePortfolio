@@ -100,6 +100,28 @@ section a {
     display: none;
 }
 
+#centerImg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fig-icon {
+    z-index: 1;
+    width: 100%;
+}
+
+.fig-icon * {
+    width: inherit;
+    object-fit: contain;
+}
+
+.doc > * {
+    width: min(100%, 600px);
+    padding: auto;
+    height: 560px;
+}
+
 /* I'm deciding not to mess with correcting viewport widths that are less than 560px */
 /* 
 Media Query set up 
@@ -140,8 +162,7 @@ Media Query set up
     }
 
     .text-right {
-        text-align: left;
-        width: auto;
+        width: 200px;
     }
   
     /*
@@ -150,5 +171,22 @@ Media Query set up
     section nav { /* contents will move from left to right, and will wrap below */
         flex-flow: row wrap; 
         justify-content: left;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .doc {
+        position: relative;
+        left: -55px;
+        top: -25px;
+        width: 450px;
+        height: 100%;
+        scale: .75;
+    }
+
+    .doc > * {
+        position: absolute;
+        top: 0px;
+        left: 0px;
     }
 }
