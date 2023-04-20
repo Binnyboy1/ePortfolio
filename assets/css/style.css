@@ -2,9 +2,9 @@
 Global attributes begin here 
 */
 :root {
-    --dark-bg: #362d4c;
-    --light-bg: #ededf6;
-    --primary: #d69df2;
+    --dark-bg: #262037;
+    --light-bg: #e5d4fc;
+    --primary: #b981dc;
     --secondary: #684e83;
     --edge-margin: 60px;
     --global-margin: 5%;
@@ -15,7 +15,8 @@ Global attributes begin here
 }
 
 body {
-    background-color: #efe9fe;
+    background-color: #362d4c;
+    color: var(--light-bg);
 }
 
 /* 
@@ -27,23 +28,29 @@ header {
     align-items: center;
     padding: 2%;
     padding-top: 1%;
-    background-color: var(--dark-bg);
-    color: var(--primary);
 }
 
 nav {
-    display: block;
-    margin-left: auto;
-    margin-right: var(--edge-margin);
-    float: right;
-    font-size: 20px;
+    overflow: hidden;
+    background-color: var(--dark-bg);
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    left: 0; /* Position the navbar at the left of the page */
+    width: 100%; /* Full width */
+    padding-right: var(--edge-margin);
+    display: flex;
+    justify-content: end;
+    font-size: 18px;
 }
 
 a {
-    padding: 3px 9px;
-    border-bottom: 4px solid var(--primary);
-    margin: 0 3px;
+    float: left;
+    display: block;
     color: var(--primary);
+    text-align: center;
+    padding: 6px 9px;
+    border-bottom: 4px solid var(--primary);
+    margin: 9px 6px;
     text-decoration: none;
 }
 
@@ -60,13 +67,7 @@ main section { /* content will move from left to right and will wrap below */
 
 main section > div {
     display: flex;
-}
-
-main section > * > * { /* right section 80% */
-    width: 80%;
-    margin-bottom: calc(var(--global-margin)/2);
-    padding-left: calc(var(--global-margin)/2);
-    border-left: 5px solid var(--secondary);
+    width: 100%;
 }
 
 .text-right { /* left section 20% w/ text aligned to the right */
@@ -75,6 +76,13 @@ main section > * > * { /* right section 80% */
     border: none;
     padding-top: calc(var(--global-margin)/8);
     padding-right: calc(var(--global-margin)/4);
+}
+
+article {
+    width: min(100%, 600px);
+    margin-bottom: calc(var(--global-margin)/2);
+    padding-left: calc(var(--global-margin)/2);
+    border-left: 5px solid var(--secondary);
 }
 
 /* 
@@ -109,11 +117,15 @@ section a {
 .fig-icon {
     z-index: 1;
     width: 100%;
+    opacity: 0.2;
 }
 
 .fig-icon * {
-    width: inherit;
+    width: 200px;
     object-fit: contain;
+    position: fixed;
+    top: 52px;
+    left: 0;
 }
 
 .doc * {
