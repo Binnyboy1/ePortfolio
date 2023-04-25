@@ -17,6 +17,8 @@ Global attributes begin here
 body {
     background-color: #362d4c;
     color: var(--light-bg);
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* 
@@ -26,8 +28,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2%;
-    padding-top: 1%;
+    /* padding: 2%;
+    padding-top: 1%; */
 }
 
 nav {
@@ -41,6 +43,7 @@ nav {
     display: flex;
     justify-content: end;
     font-size: 18px;
+    z-index: 2;
 }
 
 a {
@@ -58,7 +61,7 @@ a {
 Main starts here 
 */
 main section { /* content will move from left to right and will wrap below */
-    margin: calc(var(--global-margin)/2) var(--global-margin);
+    margin: 0 var(--global-margin);
     /* Learned from https://stackoverflow.com/questions/8643401/is-there-a-way-to-add-and-subtract-values-in-css */
     height: auto;
     display: flex;
@@ -68,6 +71,7 @@ main section { /* content will move from left to right and will wrap below */
 main section > div {
     display: flex;
     width: 100%;
+    padding: 80px 0 0 0;
 }
 
 .text-right { /* left section 20% w/ text aligned to the right */
@@ -131,6 +135,42 @@ section a {
 .doc * {
     width: min(100%, 600px);
     height: 560px;
+}
+
+
+#spinner   {          
+    animation: spin 1s linear infinite;
+    color: var(--light-bg);
+}
+  
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+  
+.inline{ 
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dark-bg);
+}
+.spinner{
+    margin: auto;
+}
+.spacer {
+    height: 40vh;
+}
+#loadText {
+    font-size: 2em;
+    width: 100%;
+    height: min-content;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 40vh;
 }
 
 /* I'm deciding not to mess with correcting viewport widths that are less than 560px */

@@ -7,9 +7,29 @@
     <title>Ian's ePortfolio</title>
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        #checker-board {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 50px;
+            z-index: 1;
+            pointer-events: none;
+        }
+    
+        .square {
+            float: left;
+            background-color: rgb(38, 32, 55);
+            pointer-events: none;
+        }
+        .hidden { opacity: 0; }
+    
+    </style>
 </head>
 
-<body>
+<body onload="myFunction()">
     <!--- Header begins here -->
     <header>
         <!--- Nav links -->
@@ -30,9 +50,18 @@
         <iframe src="https://docs.google.com/document/d/1eT0ts_WwkHfnZWg27_rIN3qXoOe7XT0aIkl5FOlm6A8/preview" style="border: 0;"></iframe>
     </div>
     -->
+    <div id="checker-board">
+    </div>
+    <div class="inline">
+        <p id="loadText">
+            Documents are loading...
+        </p>
+        <p class="spinner" id="spinner"><i class="fa fa-circle-o-notch fa-5x"></i></p>
+        <div class="spacer"></div>
+    </div>
 
     <!--- Main section begins here -->
-    <main>
+    <main id="dims">
         <section>
             <!--- About Me section -->
             <div class="start" id="about-me">
@@ -131,6 +160,98 @@
             </div>
         </section>
     </main>
+    <script type="text/JavaScript">
+
+        var n = 36;
+        var n_2 = 0;
+        var maxScroll = document.querySelector("#dims").clientHeight - window.innerHeight;
+        var currScroll = 0;
+        var attrList = [];
+
+        function setUp() {
+            var windowH = document.querySelector("#dims").clientHeight - 50;
+            var windowW = document.querySelector("#dims").clientWidth;
+            var windowR = windowH/windowW;
+
+            n_2 = Math.floor(windowR*n)*n;
+            attrList = [];
+
+            for (var i = 0; i <= n_2; i++) {
+                attrList.push(1);
+            }
+            // Create a seperate array to hold the visibility attributes for each square
+
+            var onlyOnce = 0;
+            document.onscroll = function() {
+                var newScroll = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.        documentElement || document.body.parentNode || document.body).scrollTop;
+                currScroll = Math.max(newScroll, currScroll);
+                if (document.readyState === "complete" && onlyOnce == 0) {
+                    onlyOnce = 1;
+                    scrollGradient();
+                }
+            }
+        }
+
+        var timerId;
+        function scrollGradient() {
+            timerId = setInterval(countdown, 2);
+            var incrementor = 0;
+            var arrSize = document.querySelectorAll('#attr').length;
+            function countdown() {
+                if (incrementor == arrSize) {
+                    clearTimeout(timerId);
+                } else {
+                    if (incrementor <= Math.floor(currScroll * (arrSize/maxScroll))+1 ) {
+                        attrList[incrementor] = 0;
+                        document.querySelectorAll('#attr')[incrementor].className = "hidden square";
+                        incrementor++;
+                    }
+                }
+            }
+        }
+
+        function myFunction() {
+            document.querySelector("#checker-board").innerHTML = "";
+            setUp();
+            // clears everything
+
+            for (let i = 0; i < n_2; i++) {
+                var sq = document.createElement('div');
+                sq.style.width = 100/n + "vw";
+                sq.style.height = 100/n + "vw";
+                sq.className = "square";
+                document.getElementById("checker-board").appendChild(sq);
+            }
+            // Arrange checkerboard pattern
+
+            const squares = document.querySelectorAll('.square');
+            for (let i = 0; i < squares.length; i++) {
+                squares[i].id = "attr";
+            }
+            // Give each grid square an id "attr"
+
+            // const attributes = document.querySelectorAll('#attr');
+            // for (let i = 0; i < attributes.length; i++) {
+            //     attributes[i].setAttribute("onMouseOver", "remove(" + i + ")");
+            //     attributes[i].setAttribute("onMouseOut", "revert()");
+            // }
+            // Give each grid square a unique attribute on hover
+        }
+        
+
+        // function remove(num) {
+        //     attrList[num] = 0;
+        //     document.querySelectorAll('#attr')[num].className = "hidden square";
+        //     document.querySelectorAll('#attr')[num].style.pointerEvents = "none";
+        //     document.querySelector('#checker-board').style.pointerEvents = "none";
+        // }
+        // // Remove the visibility attributes for a square
+
+        // function revert() {
+        //     document.querySelector('#checker-board').style.pointerEvents = "auto";
+        // }
+
+    </script>
 </body>
 
 <script src="./assets/js/logic.js"></script>
