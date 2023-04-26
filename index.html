@@ -10,6 +10,10 @@
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
+        .tab {
+            pointer-events: none;
+        }
+
         #checker-board {
             width: 100vw;
             height: 100vh;
@@ -25,22 +29,121 @@
             pointer-events: none;
         }
         .hidden { opacity: 0; }
+        .unavailable { display: none; }
+
+        #scrollDiv {
+            position: fixed;
+            display: flex;
+            justify-content: end;
+            padding-right: 10%;
+            align-items: center;
+            width: 100%;
+            margin-top: 45vh;
+            z-index: 3;
+        }
+        .scrollDown {
+            width: 45px;
+            height: 70px;
+            border: #e5d4fc solid 2px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .scrollDown span {
+            background-color: #e5d4fc;
+            width: 5px;
+            height: 10px;
+            border-radius: 30px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .scrollDown span::before {
+            position: absolute;
+            content: '';
+            width: 15px;
+            height: 15px;
+            border: none;
+            border-right: 2px solid #e5d4fc;
+            border-top: 2px solid #e5d4fc;
+            transform: translateY(-10px) rotate(135deg);
+            left: -6px;
+            margin-top: 10px;
+            opacity: 0;
+            animation: ani 1.8s infinite linear;
+        }
+
+        .scrollDown span::after {
+            position: absolute;
+            content: '';
+            width: 15px;
+            height: 15px;
+            border: none;
+            border-right: 2px solid #e5d4fc;
+            border-top: 2px solid #e5d4fc;
+            transform: translateY(-10px) rotate(135deg);
+            left: -6px;
+            margin-top: 10px;
+            opacity: 0;
+            animation: ani 1.8s infinite linear;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes ani {
+            0% {
+                margin-top: 10px;
+                opacity: 0;
+            }
+
+            50% {
+                margin-top: 25px;
+                opacity: 1;
+            }
+
+            100% {
+                margin-top: 40px;
+                opacity: 0;
+            }
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #684e83;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #b981dc;
+        }
     
     </style>
 </head>
 
 <body onload="myFunction()">
+    <div id="scrollDiv">
+        <a href="" class="scrollDown">
+            <span></span>
+        </a>
+    </div>
+    <div class="bottomGrad"></div>
+
     <!--- Header begins here -->
     <header>
         <!--- Nav links -->
         <nav>
             <a class="tab" href="#about-me">About Me</a>
-            <a class="tab" href="#preparation">Preparation</a>
-            <a class="tab" href="#foundation">Foundation</a>
-            <a class="tab" href="#references">References</a>
-            <a class="tab" href="#roadblocks">Roadblocks</a>
-            <a class="tab" href="#strategies">Strategies</a>
-            <a class="tab" href="#reflection">Reflection</a>
+            <a class="tab unavailable" href="#preparation">Preparation</a>
+            <a class="tab unavailable" href="#foundation">Foundation</a>
+            <a class="tab unavailable" href="#references">References</a>
+            <a class="tab unavailable" href="#roadblocks">Roadblocks</a>
+            <a class="tab unavailable" href="#strategies">Strategies</a>
+            <a class="tab unavailable" href="#reflection">Reflection</a>
         </nav>
     </header>
 
@@ -81,6 +184,7 @@
                         <iframe src="https://docs.google.com/document/d/1eT0ts_WwkHfnZWg27_rIN3qXoOe7XT0aIkl5FOlm6A8/preview" style="border: 0;"></iframe>
                     </div>
                 </article>
+                <a class="tab" href="#preparation">Discover</a>
             </div>
 
             <!--- Tab 2 section -->
@@ -93,6 +197,7 @@
                         Reading Responses 1-6
                     </p>
                 </article>
+                <a class="tab" href="#foundation">Discover</a>
             </div>
             
             <!--- Tab 3 section -->
@@ -107,6 +212,7 @@
                         Coding worksheet
                     </p>
                 </article>
+                <a class="tab" href="#references">Discover</a>
             </div>
 
             <!--- Tab 4 section -->
@@ -121,6 +227,7 @@
                         Easy Writer
                     </p>
                 </article>
+                <a class="tab" href="#roadblocks">Discover</a>
             </div>
 
             <!--- Tab 5 section -->
@@ -133,6 +240,7 @@
                         Literature Review & Annotated Bibliography (Feedback draft)
                     </p>
                 </article>
+                <a class="tab" href="#strategies">Discover</a>
             </div>
 
             <!--- Tab 6 section -->
@@ -145,6 +253,7 @@
                         Final Research Paper (Graded Draft)
                     </p>
                 </article>
+                <a class="tab" href="#reflection">Discover</a>
             </div>
 
             <!--- Tab 7 section -->
@@ -169,11 +278,16 @@
         var attrList = [];
 
         function setUp() {
-            var windowH = document.querySelector("#dims").clientHeight - 50;
+            var windowH = 0;
+            if (document.querySelector("#dims").clientHeight > window.innerHeight) {
+                windowH = document.querySelector("#dims").clientHeight - 50;
+            } else {
+                windowH = window.innerHeight - 50;
+            }
             var windowW = document.querySelector("#dims").clientWidth;
             var windowR = windowH/windowW;
 
-            n_2 = Math.floor(windowR*n)*n;
+            n_2 = Math.ceil(windowR*n)*n;
             attrList = [];
 
             for (var i = 0; i <= n_2; i++) {
@@ -187,24 +301,33 @@
                 currScroll = Math.max(newScroll, currScroll);
                 if (document.readyState === "complete" && onlyOnce == 0) {
                     onlyOnce = 1;
+                    if (document.querySelector("#dims").clientHeight > window.innerHeight) {
+                        maxScroll = document.querySelector("#dims").clientHeight - window.innerHeight;
+                    } else {
+                        maxScroll = 1;
+                    }
                     scrollGradient();
+                    document.getElementById( 'scrollDiv' ).style.display = 'none';
                 }
             }
         }
 
         var timerId;
         function scrollGradient() {
-            timerId = setInterval(countdown, 2);
+            timerId = setInterval(countdown, 1);
             var incrementor = 0;
             var arrSize = document.querySelectorAll('#attr').length;
             function countdown() {
-                if (incrementor == arrSize) {
-                    clearTimeout(timerId);
-                } else {
+                if (incrementor !== arrSize) {
                     if (incrementor <= Math.floor(currScroll * (arrSize/maxScroll))+1 ) {
                         attrList[incrementor] = 0;
                         document.querySelectorAll('#attr')[incrementor].className = "hidden square";
                         incrementor++;
+                    }
+                } else {
+                    clearTimeout(timerId);
+                    for (let i = 0; i < document.querySelectorAll('.tab').length; i++) {
+                        document.querySelectorAll('.tab')[i].style.pointerEvents = "all";
                     }
                 }
             }
@@ -229,28 +352,8 @@
                 squares[i].id = "attr";
             }
             // Give each grid square an id "attr"
-
-            // const attributes = document.querySelectorAll('#attr');
-            // for (let i = 0; i < attributes.length; i++) {
-            //     attributes[i].setAttribute("onMouseOver", "remove(" + i + ")");
-            //     attributes[i].setAttribute("onMouseOut", "revert()");
-            // }
-            // Give each grid square a unique attribute on hover
         }
         
-
-        // function remove(num) {
-        //     attrList[num] = 0;
-        //     document.querySelectorAll('#attr')[num].className = "hidden square";
-        //     document.querySelectorAll('#attr')[num].style.pointerEvents = "none";
-        //     document.querySelector('#checker-board').style.pointerEvents = "none";
-        // }
-        // // Remove the visibility attributes for a square
-
-        // function revert() {
-        //     document.querySelector('#checker-board').style.pointerEvents = "auto";
-        // }
-
     </script>
 </body>
 

@@ -21,6 +21,16 @@ body {
     overflow-x: hidden;
 }
 
+.bottomGrad {
+    background-image: linear-gradient(180deg, #ffffff00 0%, var(--dark-bg) 85%, var(--dark-bg) 100%);
+    background-size: cover;
+    position: fixed;
+    width: 100vw;
+    height: 30vh;
+    bottom: 0;
+    z-index: -1;
+}
+
 /* 
 Header begins here 
 */
