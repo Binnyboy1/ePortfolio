@@ -67,6 +67,45 @@ a {
     text-decoration: none;
 }
 
+article > p {
+    font-family: 'DIN Next LT Arabic Medium';
+    letter-spacing: normal;
+    font-kerning: auto;
+    font-size: 1.1rem;
+    line-height: 1.1;
+}
+
+.stylized {
+    background-image: linear-gradient(105deg, #e4c088, #d0aa6f);
+    width: 116px;
+    height: 31px;
+    border-radius: 16px;
+    border-bottom: none;
+    border: 2px solid #cda464;
+    padding-top: 5px;
+    margin: 4px;
+    margin-top: 3px;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.outer_style {
+    background-image: linear-gradient(105deg, #e4c088, #d0aa6f);
+    width: 124px;
+    height: 37px;
+    border-radius: 19px;
+
+    margin-left: 5%;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+
 /* 
 Main starts here 
 */
@@ -94,7 +133,6 @@ main section > div {
 
 article {
     width: min(100%, 600px);
-    margin-bottom: calc(var(--global-margin)/2);
     padding-left: calc(var(--global-margin)/2);
     border-left: 5px solid var(--secondary);
 }
@@ -131,14 +169,14 @@ section a {
 .fig-icon {
     z-index: 1;
     width: 100%;
-    opacity: 0.2;
+    opacity: 0.6;
 }
 
 .fig-icon * {
     width: 200px;
     object-fit: contain;
-    position: fixed;
-    top: 52px;
+    position: absolute;
+    top: 50px;
     left: 0;
 }
 
@@ -183,7 +221,16 @@ section a {
     padding-top: 40vh;
 }
 
-/* I'm deciding not to mess with correcting viewport widths that are less than 560px */
+@font-face {
+    font-family: "DIN Next LT Arabic Medium";
+    src: url("//db.onlinewebfonts.com/t/aba1a083bf50980a05f0265179103a09.eot");
+    src: url("//db.onlinewebfonts.com/t/aba1a083bf50980a05f0265179103a09.eot?#iefix") format("embedded-opentype"), 
+    url("//db.onlinewebfonts.com/t/aba1a083bf50980a05f0265179103a09.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/aba1a083bf50980a05f0265179103a09.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/aba1a083bf50980a05f0265179103a09.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/aba1a083bf50980a05f0265179103a09.svg#DIN Next LT Arabic Medium") format("svg");
+}
+
 /* 
 Media Query set up 
 */
