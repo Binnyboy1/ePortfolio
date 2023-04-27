@@ -14,6 +14,10 @@ Global attributes begin here
     font-family: 'Trebuchet MS', sans-serif;
 }
 
+h2 {
+    font-size: 1.2rem;
+}
+
 body {
     background-color: #362d4c;
     color: var(--light-bg);
