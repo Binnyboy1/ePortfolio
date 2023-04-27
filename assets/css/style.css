@@ -110,6 +110,12 @@ article > p {
     margin-top: auto;
 }
 
+#preparation > article > div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 /* 
 Main starts here 
 */
